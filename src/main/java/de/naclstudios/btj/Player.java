@@ -6,6 +6,8 @@ import de.edgelord.saltyengine.core.graphics.SaltyGraphics;
 import de.edgelord.saltyengine.gameobject.GameObject;
 import de.edgelord.saltyengine.input.Input;
 
+import java.io.IOException;
+
 /**
  * The player!
  */
@@ -24,7 +26,11 @@ public class Player extends GameObject {
 
         camFollow.setSpeed(2.5f);
 
-        addComponent(new PlayerController(this, "playerController"));
+        try {
+            addComponent(new PlayerController(this, "playerController"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         addComponent(camFollow);
     }
 
