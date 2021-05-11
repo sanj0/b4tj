@@ -1,0 +1,11 @@
+Sämi:
+    - Design
+    - Artwork
+
+Thomas:
+    - Programming
+        - Enemy, Rat
+
+Malte:
+    - Programming
+        - Player, Item, Inventory
