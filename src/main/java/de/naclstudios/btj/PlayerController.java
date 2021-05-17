@@ -8,6 +8,7 @@ import de.edgelord.saltyengine.gameobject.GameObject;
 import de.edgelord.saltyengine.graphics.image.SaltyImage;
 import de.edgelord.saltyengine.graphics.sprite.SpritesheetAnimation;
 import de.edgelord.saltyengine.graphics.sprite.TextureAtlas;
+import de.edgelord.saltyengine.graphics.sprite.TextureAtlasParser;
 import de.edgelord.saltyengine.input.Input;
 import de.edgelord.saltyengine.utils.Directions;
 import de.edgelord.saltyengine.utils.SaltySystem;
@@ -44,25 +45,23 @@ public class PlayerController extends Component<GameObject> {
 
     private SaltyImage currentFreezeImage;
 
-    private Directions.Direction currentDirection;
     private boolean freeze = true;
 
     public PlayerController(final GameObject owner, final String id) throws IOException {
         super(owner, id, "de.naclstudios.btj.player.animations");
         animationRender = new AnimationRender(owner, "de.naclstudios.btj.player.animationRender", null, 13);
 
-        final Map<String, Object> textureObjects = TextureAtlas.readAtlas(SaltySystem.defaultResource.getFileResource("assets/mainchar.texmap.sj"));
-        walkUp = (SpritesheetAnimation) textureObjects.get(UP_WALK);
-        walkDown = (SpritesheetAnimation) textureObjects.get(DOWN_WALK);
-        walkLeft = (SpritesheetAnimation) textureObjects.get(LEFT_WALK);
-        walkRight = (SpritesheetAnimation) textureObjects.get(RIGHT_WALK);
+        final TextureAtlas atlas = TextureAtlasParser.readAtlas(SaltySystem.defaultResource.getFileResource("assets/mainchar.texmap.sj"));
+        walkUp = atlas.getAnimation(UP_WALK);
+        walkDown = atlas.getAnimation(DOWN_WALK);
+        walkLeft = atlas.getAnimation(LEFT_WALK);
+        walkRight = atlas.getAnimation(RIGHT_WALK);
 
-        upFreeze = (SaltyImage) textureObjects.get(UP_FREEZE);
-        downFreeze = (SaltyImage) textureObjects.get(DOWN_FREEZE);
-        leftFreeze = (SaltyImage) textureObjects.get(LEFT_FREEZE);
-        rightFreeze = (SaltyImage) textureObjects.get(RIGHT_FREEZE);
+        upFreeze = atlas.getImage(UP_FREEZE);
+        downFreeze = atlas.getImage(DOWN_FREEZE);
+        leftFreeze = atlas.getImage(LEFT_FREEZE);
+        rightFreeze = atlas.getImage(RIGHT_FREEZE);
 
-        currentDirection = Directions.Direction.DOWN;
         currentFreezeImage = downFreeze;
     }
 
@@ -80,7 +79,6 @@ public class PlayerController extends Component<GameObject> {
         animationRender.onFixedTick();
         freeze = true;
         if (Input.inputUp) {
-            currentDirection = Directions.Direction.UP;
             freeze = false;
             animationRender.setSpritesheetAnimation(walkUp);
             currentFreezeImage = upFreeze;
@@ -88,7 +86,6 @@ public class PlayerController extends Component<GameObject> {
         }
 
         if (Input.inputDown) {
-            currentDirection = Directions.Direction.DOWN;
             freeze = false;
             animationRender.setSpritesheetAnimation(walkDown);
             currentFreezeImage = downFreeze;
@@ -96,7 +93,6 @@ public class PlayerController extends Component<GameObject> {
         }
 
         if (Input.inputLeft) {
-            currentDirection = Directions.Direction.LEFT;
             freeze = false;
             animationRender.setSpritesheetAnimation(walkLeft);
             currentFreezeImage = leftFreeze;
@@ -104,7 +100,6 @@ public class PlayerController extends Component<GameObject> {
         }
 
         if (Input.inputRight) {
-            currentDirection = Directions.Direction.RIGHT;
             freeze = false;
             animationRender.setSpritesheetAnimation(walkRight);
             currentFreezeImage = rightFreeze;

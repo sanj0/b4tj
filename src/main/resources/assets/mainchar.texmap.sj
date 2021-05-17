@@ -1,7 +1,7 @@
 .source-path=assets/mainchar.png
 .sprite-size=73x94
 
---- all them freeze images ---
+--- all the freeze images ---
 :freeze-up
     .type=image
     .sprite=0:0
@@ -15,7 +15,7 @@
     .type=image
     .sprite=2:0
 
---- all them walking animations ---
+--- all the walking animations ---
 :walk-up
     .type=animation
     .sprites[]=0:0,0:1,0:0,0:2
