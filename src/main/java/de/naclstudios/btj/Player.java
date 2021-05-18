@@ -1,12 +1,15 @@
 package de.naclstudios.btj;
 
 import de.edgelord.saltyengine.components.CameraFollowComponent;
+import de.edgelord.saltyengine.core.Game;
 import de.edgelord.saltyengine.core.event.CollisionEvent;
 import de.edgelord.saltyengine.core.graphics.SaltyGraphics;
 import de.edgelord.saltyengine.gameobject.GameObject;
 import de.edgelord.saltyengine.input.Input;
+import de.edgelord.saltyengine.utils.ColorUtil;
 import de.edgelord.saltyengine.utils.Directions;
 
+import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.util.List;
 
@@ -29,7 +32,8 @@ public class Player extends GameObject {
     private float jumpVelocity = 50000;
     private float lastX;
     private float lastY;
-    private int fuel = 500;
+    private int maxFuel = 300;
+    private int currentFuel = maxFuel;
 
     public Player(float xPos, float yPos) {
         super(xPos, yPos, WIDTH, HEIGHT, TAG);
@@ -72,13 +76,13 @@ public class Player extends GameObject {
                 accelerate(1000, Directions.Direction.UP);
             } else if (!Input.getKeyboardInput().isSpace()) {
                 isJumping = false;
-            } else if (!isJumping && fuel > 0) {
+            } else if (!isJumping && currentFuel > 0) {
                 accelerate(1750, Directions.Direction.UP);
-                fuel--;
+                currentFuel--;
             }
         } else {
             hasJumped = false;
-            fuel = 500;
+            currentFuel = Math.min(currentFuel + 1, maxFuel);
         }
         lastX = getX();
         lastY = getY();
@@ -86,11 +90,19 @@ public class Player extends GameObject {
 
     @Override
     public void draw(SaltyGraphics saltyGraphics) {
-
+        saltyGraphics.setTransform(new AffineTransform());
+        saltyGraphics.setColor(ColorUtil.PURPLE_COLOR);
+        saltyGraphics.outlineRect(25, 25, 200, 30);
+        saltyGraphics.drawRect(25, 25, 200f * currentFuel / maxFuel, 30);
     }
 
     @Override
     public void onCollisionDetectionFinish(List<CollisionEvent> collisions) {
-        airborne = collisions.isEmpty();
+        airborne = true;
+        for (CollisionEvent e : collisions){
+            if (e.getCollisionDirection() == Directions.Direction.DOWN){
+                airborne = false;
+            }
+        }
     }
 }
