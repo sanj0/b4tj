@@ -24,8 +24,11 @@ public class Player extends GameObject {
 
     private boolean airborne;
     private boolean hasJumped = false;
+    private boolean isJumping = false;
     private float velocity = 2500f;
     private float jumpVelocity = 50000;
+    private float lastX;
+    private float lastY;
 
     public Player(float xPos, float yPos) {
         super(xPos, yPos, WIDTH, HEIGHT, TAG);
@@ -53,15 +56,27 @@ public class Player extends GameObject {
 
     @Override
     public void onFixedTick() {
-        accelerateTo(velocity, Input.getInput());
-        if (Input.getKeyboardInput().isSpace()) {
-            if (!airborne && !hasJumped) {
+        final Directions input = Input.getInput();
+        input.removeDirection(Directions.Direction.UP);
+        input.removeDirection(Directions.Direction.DOWN);
+        accelerateTo(velocity, input);
+        if (Input.getKeyboardInput().isSpace() && !airborne) {
+            if (!hasJumped) {
                 accelerate(jumpVelocity, Directions.Direction.UP);
                 hasJumped = true;
+                isJumping = true;
+            }
+        } else if (airborne) {
+            if (Input.getKeyboardInput().isSpace() && isJumping && (lastY - getY() > 0.5)) {
+                accelerate(1000, Directions.Direction.UP);
+            } else if (!Input.getKeyboardInput().isSpace()) {
+                isJumping = false;
             }
         } else {
             hasJumped = false;
         }
+        lastX = getX();
+        lastY = getY();
     }
 
     @Override
