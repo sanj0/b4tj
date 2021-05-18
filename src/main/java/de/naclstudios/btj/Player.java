@@ -29,6 +29,7 @@ public class Player extends GameObject {
     private float jumpVelocity = 50000;
     private float lastX;
     private float lastY;
+    private int fuel = 500;
 
     public Player(float xPos, float yPos) {
         super(xPos, yPos, WIDTH, HEIGHT, TAG);
@@ -67,13 +68,17 @@ public class Player extends GameObject {
                 isJumping = true;
             }
         } else if (airborne) {
-            if (Input.getKeyboardInput().isSpace() && isJumping && (lastY - getY() > 0.5)) {
+            if (Input.getKeyboardInput().isSpace() && isJumping && (lastY - getY() > 0.1)) {
                 accelerate(1000, Directions.Direction.UP);
             } else if (!Input.getKeyboardInput().isSpace()) {
                 isJumping = false;
+            } else if (!isJumping && fuel > 0) {
+                accelerate(1750, Directions.Direction.UP);
+                fuel--;
             }
         } else {
             hasJumped = false;
+            fuel = 500;
         }
         lastX = getX();
         lastY = getY();
