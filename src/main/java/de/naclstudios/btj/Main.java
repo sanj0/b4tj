@@ -17,6 +17,7 @@ public class Main extends Game {
         start(24, new Scene() {
             @Override
             public void initialize() {
+                setGravity(1000);
                 addGameObject(new Player(500, 500));
                 addGameObject(new Obstacle(0, 900, 1000, 10, "floor"));
                 addDrawingRoutine(new DrawingRoutine(DrawingRoutine.DrawingPosition.BEFORE_GAMEOBJECTS) {
