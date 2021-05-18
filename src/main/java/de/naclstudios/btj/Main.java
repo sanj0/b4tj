@@ -18,6 +18,7 @@ public class Main extends Game {
             @Override
             public void initialize() {
                 addGameObject(new Player(500, 500));
+                addGameObject(new Obstacle(0, 900, 1000, 10, "floor"));
                 addDrawingRoutine(new DrawingRoutine(DrawingRoutine.DrawingPosition.BEFORE_GAMEOBJECTS) {
                     final SaltyImage img = new InnerResource().getImageResource("assets/sam.jpeg");
                     @Override
