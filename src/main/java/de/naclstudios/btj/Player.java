@@ -28,8 +28,8 @@ public class Player extends GameObject {
     private boolean isJumping = false;
     private float velocity = 2500f;
     private float jumpVelocity = 60000f;
-    private float lastX;
-    private float lastY;
+    private float lastX = getX();
+    private float lastY = getY();
     private final int maxFuel = 300;
     private int currentFuel = maxFuel;
 
@@ -59,6 +59,9 @@ public class Player extends GameObject {
 
     @Override
     public void onFixedTick() {
+        final float currXVelocity = getX() - lastX;
+        final float currYVelocity = getY() - lastY;
+
         final Directions input = Input.getInput();
         input.removeDirection(Directions.Direction.UP);
         input.removeDirection(Directions.Direction.DOWN);
@@ -70,7 +73,7 @@ public class Player extends GameObject {
                 isJumping = true;
             }
         } else if (airborne) {
-            if (Input.getKeyboardInput().isSpace() && isJumping && (lastY - getY() > 0.1)) {
+            if (Input.getKeyboardInput().isSpace() && isJumping && (-currYVelocity > 0.1)) {
                 accelerate(1000, Directions.Direction.UP);
             } else if (!Input.getKeyboardInput().isSpace()) {
                 isJumping = false;
