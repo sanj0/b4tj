@@ -1,7 +1,6 @@
 package de.naclstudios.btj;
 
 import de.edgelord.saltyengine.components.CameraFollowComponent;
-import de.edgelord.saltyengine.core.Game;
 import de.edgelord.saltyengine.core.event.CollisionEvent;
 import de.edgelord.saltyengine.core.graphics.SaltyGraphics;
 import de.edgelord.saltyengine.gameobject.GameObject;
@@ -22,23 +21,22 @@ public class Player extends GameObject {
     public static final float WIDTH = 72;
     public static final float HEIGHT = 91;
 
-
     private final CameraFollowComponent camFollow = new CameraFollowComponent(this, "cam-follow");
 
     private boolean airborne;
     private boolean hasJumped = false;
     private boolean isJumping = false;
     private float velocity = 2500f;
-    private float jumpVelocity = 50000;
+    private float jumpVelocity = 60000f;
     private float lastX;
     private float lastY;
-    private int maxFuel = 300;
+    private final int maxFuel = 300;
     private int currentFuel = maxFuel;
 
     public Player(float xPos, float yPos) {
         super(xPos, yPos, WIDTH, HEIGHT, TAG);
 
-        camFollow.setSpeed(2.5f);
+        camFollow.setSpeed(3f);
 
         try {
             addComponent(new PlayerController(this, "playerController"));
@@ -99,8 +97,8 @@ public class Player extends GameObject {
     @Override
     public void onCollisionDetectionFinish(List<CollisionEvent> collisions) {
         airborne = true;
-        for (CollisionEvent e : collisions){
-            if (e.getCollisionDirection() == Directions.Direction.DOWN){
+        for (CollisionEvent e : collisions) {
+            if (e.getCollisionDirection() == Directions.Direction.DOWN) {
                 airborne = false;
             }
         }

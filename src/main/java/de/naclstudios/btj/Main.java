@@ -17,11 +17,12 @@ public class Main extends Game {
         start(24, new Scene() {
             @Override
             public void initialize() {
-                setGravity(1000);
+                setGravity(1200);
                 addGameObject(new Player(500, 500));
                 addGameObject(new Obstacle(0, 900, 1000, 10, "floor"));
                 addDrawingRoutine(new DrawingRoutine(DrawingRoutine.DrawingPosition.BEFORE_GAMEOBJECTS) {
                     final SaltyImage img = new InnerResource().getImageResource("assets/sam.jpeg");
+
                     @Override
                     public void draw(SaltyGraphics saltyGraphics) {
                         saltyGraphics.drawImage(img, Vector2f.zero(), new Dimensions(2000, 1000));
