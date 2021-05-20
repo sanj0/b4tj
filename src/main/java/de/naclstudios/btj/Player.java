@@ -17,12 +17,27 @@ import java.util.List;
  */
 public class Player extends GameObject {
 
+    // --- constants --- \\
     public static final String TAG = "player";
     public static final float WIDTH = 72;
     public static final float HEIGHT = 91;
+    /**
+     * Play is accelerated by this value
+     * each tick that
+     *   a) space is being held
+     *   b) they are jumping
+     *   c) the negative of the current y velocity is greater than {@link #JUMP_BOOST_THRESHOLD}
+     */
+    private static final float JUMP_BOOST = 1000;
+    private static final float JUMP_BOOST_THRESHOLD = 0.1f;
 
+    // --- components --- \\
     private final CameraFollowComponent camFollow = new CameraFollowComponent(this, "cam-follow");
 
+    // --- fields --- \\
+    /**
+     * Is the player not touching ground?
+     */
     private boolean airborne;
     private boolean hasJumped = false;
     private boolean isJumping = false;
@@ -30,8 +45,9 @@ public class Player extends GameObject {
     private float jumpVelocity = 60000f;
     private float lastX = getX();
     private float lastY = getY();
-    private final int maxFuel = 300;
+    private int maxFuel = 300;
     private int currentFuel = maxFuel;
+    private int fuelReload = 1;
 
     public Player(float xPos, float yPos) {
         super(xPos, yPos, WIDTH, HEIGHT, TAG);
@@ -73,8 +89,8 @@ public class Player extends GameObject {
                 isJumping = true;
             }
         } else if (airborne) {
-            if (Input.getKeyboardInput().isSpace() && isJumping && (-currYVelocity > 0.1)) {
-                accelerate(1000, Directions.Direction.UP);
+            if (Input.getKeyboardInput().isSpace() && isJumping && (-currYVelocity > JUMP_BOOST_THRESHOLD)) {
+                accelerate(JUMP_BOOST, Directions.Direction.UP);
             } else if (!Input.getKeyboardInput().isSpace()) {
                 isJumping = false;
             } else if (!isJumping && currentFuel > 0) {
@@ -83,7 +99,7 @@ public class Player extends GameObject {
             }
         } else {
             hasJumped = false;
-            currentFuel = Math.min(currentFuel + 1, maxFuel);
+            currentFuel = Math.min(currentFuel + fuelReload, maxFuel);
         }
         lastX = getX();
         lastY = getY();
@@ -105,5 +121,57 @@ public class Player extends GameObject {
                 airborne = false;
             }
         }
+    }
+
+    // --- getters for get-only fields --- \\
+
+    public boolean isAirborne() {
+        return airborne;
+    }
+
+    public boolean isJumping() {
+        return isJumping;
+    }
+
+    // --- getters and setters --- \\
+
+    public float getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(float velocity) {
+        this.velocity = velocity;
+    }
+
+    public float getJumpVelocity() {
+        return jumpVelocity;
+    }
+
+    public void setJumpVelocity(float jumpVelocity) {
+        this.jumpVelocity = jumpVelocity;
+    }
+
+    public int getMaxFuel() {
+        return maxFuel;
+    }
+
+    public void setMaxFuel(int maxFuel) {
+        this.maxFuel = maxFuel;
+    }
+
+    public int getCurrentFuel() {
+        return currentFuel;
+    }
+
+    public void setCurrentFuel(int currentFuel) {
+        this.currentFuel = currentFuel;
+    }
+
+    public int getFuelReload() {
+        return fuelReload;
+    }
+
+    public void setFuelReload(int fuelReload) {
+        this.fuelReload = fuelReload;
     }
 }
