@@ -10,11 +10,9 @@ import de.edgelord.saltyengine.graphics.sprite.SpritesheetAnimation;
 import de.edgelord.saltyengine.graphics.sprite.TextureAtlas;
 import de.edgelord.saltyengine.graphics.sprite.TextureAtlasParser;
 import de.edgelord.saltyengine.input.Input;
-import de.edgelord.saltyengine.utils.Directions;
 import de.edgelord.saltyengine.utils.SaltySystem;
 
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * misnomer: also manages hitbox changes
@@ -31,17 +29,17 @@ public class PlayerController extends Component<GameObject> {
     public static final String LEFT_WALK = "walk-left";
     public static final String RIGHT_WALK = "walk-right";
 
-    private AnimationRender animationRender;
+    private final AnimationRender animationRender;
 
-    private SpritesheetAnimation walkUp;
-    private SpritesheetAnimation walkDown;
-    private SpritesheetAnimation walkRight;
-    private SpritesheetAnimation walkLeft;
+    private final SpritesheetAnimation walkUp;
+    private final SpritesheetAnimation walkDown;
+    private final SpritesheetAnimation walkRight;
+    private final SpritesheetAnimation walkLeft;
 
-    private SaltyImage upFreeze;
-    private SaltyImage downFreeze;
-    private SaltyImage rightFreeze;
-    private SaltyImage leftFreeze;
+    private final SaltyImage upFreeze;
+    private final SaltyImage downFreeze;
+    private final SaltyImage rightFreeze;
+    private final SaltyImage leftFreeze;
 
     private SaltyImage currentFreezeImage;
 

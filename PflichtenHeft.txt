@@ -5,6 +5,7 @@ Sämi:
 Thomas:
     - Programming
         - Enemy, Rat
+    - Desing: puzzles	
 
 Malte:
     - Programming
