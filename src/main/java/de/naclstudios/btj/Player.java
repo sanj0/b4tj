@@ -3,7 +3,6 @@ package de.naclstudios.btj;
 import de.edgelord.saltyengine.components.CameraFollowComponent;
 import de.edgelord.saltyengine.core.event.CollisionEvent;
 import de.edgelord.saltyengine.core.graphics.SaltyGraphics;
-import de.edgelord.saltyengine.gameobject.GameObject;
 import de.edgelord.saltyengine.input.Input;
 import de.edgelord.saltyengine.utils.ColorUtil;
 import de.edgelord.saltyengine.utils.Directions;
@@ -15,18 +14,17 @@ import java.util.List;
 /**
  * The player!
  */
-public class Player extends GameObject {
+public class Player extends B4TJEntity {
 
     // --- constants --- \\
     public static final String TAG = "player";
-    public static final float WIDTH = 72;
-    public static final float HEIGHT = 91;
+    public static final float WIDTH = 73;
+    public static final float HEIGHT = 94;
     /**
-     * Play is accelerated by this value
-     * each tick that
-     *   a) space is being held
-     *   b) they are jumping
-     *   c) the negative of the current y velocity is greater than {@link #JUMP_BOOST_THRESHOLD}
+     * Player is accelerated by this value each tick that a) space is being held
+     * b) they are jumping c) the negative of the current y velocity is greater
+     * than {@link #JUMP_BOOST_THRESHOLD} in order to boost the effect of being
+     * able to control jump height by holding space
      */
     private static final float JUMP_BOOST = 1000;
     private static final float JUMP_BOOST_THRESHOLD = 0.1f;
