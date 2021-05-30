@@ -1,9 +1,14 @@
 package de.naclstudios.btj;
 
+import de.edgelord.saltyengine.components.CollisionOverlapFixer;
+import de.edgelord.saltyengine.core.event.CollisionEvent;
 import de.edgelord.saltyengine.gameobject.GameObject;
 import de.edgelord.saltyengine.transform.Dimensions;
 import de.edgelord.saltyengine.transform.Transform;
 import de.edgelord.saltyengine.transform.Vector2f;
+import de.edgelord.saltyengine.utils.Directions;
+
+import java.util.List;
 
 /**
  * health and other general b4tj-specific
@@ -14,27 +19,46 @@ public abstract class B4TJEntity extends GameObject {
     public static final int DEFAULT_MAX_HEALTH = 100;
     public static final int DEFAULT_CURRENT_HEALTH = DEFAULT_MAX_HEALTH;
 
+    private boolean grounded = false;
     private int maxHealth = DEFAULT_MAX_HEALTH;
     private int currentHealth = DEFAULT_CURRENT_HEALTH;
 
+    private CollisionOverlapFixer collisionOverlapFixer = new CollisionOverlapFixer(this, "collision-overlap-fixer");
+
     public B4TJEntity(final float xPos, final float yPos, final float width, final float height, final String tag) {
         super(xPos, yPos, width, height, tag);
+        addComponent(collisionOverlapFixer);
     }
 
     public B4TJEntity(final Transform transform, final String tag) {
         super(transform, tag);
+        addComponent(collisionOverlapFixer);
     }
 
     public B4TJEntity(final Vector2f position, final Dimensions dimensions, final String tag) {
         super(position, dimensions, tag);
+        addComponent(collisionOverlapFixer);
     }
 
     public B4TJEntity(final Vector2f position, final float width, final float height, final String tag) {
         super(position, width, height, tag);
+        addComponent(collisionOverlapFixer);
     }
 
     public B4TJEntity(final float xPos, final float yPos, final Dimensions dimensions, final String tag) {
         super(xPos, yPos, dimensions, tag);
+        addComponent(collisionOverlapFixer);
+    }
+
+    @Override
+    public void onCollisionDetectionFinish(final List<CollisionEvent> collisions) {
+        grounded = false;
+        final int nCollisions = collisions.size();
+        for (int i = 0; i < nCollisions; i++) {
+            if (collisions.get(i).getCollisionDirection() == Directions.Direction.DOWN) {
+                grounded = true;
+            }
+        }
     }
 
     /**
@@ -95,5 +119,14 @@ public abstract class B4TJEntity extends GameObject {
      */
     public void setCurrentHealth(final int currentHealth) {
         this.currentHealth = currentHealth;
+    }
+
+    /**
+     * Gets {@link #grounded}.
+     *
+     * @return the value of {@link #grounded}
+     */
+    public boolean isGrounded() {
+        return grounded;
     }
 }

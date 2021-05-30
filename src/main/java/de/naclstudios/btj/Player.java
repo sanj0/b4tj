@@ -9,7 +9,6 @@ import de.edgelord.saltyengine.utils.Directions;
 
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * The player!
@@ -33,10 +32,6 @@ public class Player extends B4TJEntity {
     private final CameraFollowComponent camFollow = new CameraFollowComponent(this, "cam-follow");
 
     // --- fields --- \\
-    /**
-     * Is the player not touching ground?
-     */
-    private boolean airborne;
     private boolean hasJumped = false;
     private boolean isJumping = false;
     private float velocity = 2500f;
@@ -80,13 +75,13 @@ public class Player extends B4TJEntity {
         input.removeDirection(Directions.Direction.UP);
         input.removeDirection(Directions.Direction.DOWN);
         accelerateTo(velocity, input);
-        if (Input.getKeyboardInput().isSpace() && !airborne) {
+        if (Input.getKeyboardInput().isSpace() && isGrounded()) {
             if (!hasJumped) {
                 accelerate(jumpVelocity, Directions.Direction.UP);
                 hasJumped = true;
                 isJumping = true;
             }
-        } else if (airborne) {
+        } else if (!isGrounded()) {
             if (Input.getKeyboardInput().isSpace() && isJumping && (-currYVelocity > JUMP_BOOST_THRESHOLD)) {
                 accelerate(JUMP_BOOST, Directions.Direction.UP);
             } else if (!Input.getKeyboardInput().isSpace()) {
@@ -111,21 +106,7 @@ public class Player extends B4TJEntity {
         saltyGraphics.drawRect(25, 25, 200f * currentFuel / maxFuel, 30);
     }
 
-    @Override
-    public void onCollisionDetectionFinish(List<CollisionEvent> collisions) {
-        airborne = true;
-        for (CollisionEvent e : collisions) {
-            if (e.getCollisionDirection() == Directions.Direction.DOWN) {
-                airborne = false;
-            }
-        }
-    }
-
     // --- getters for get-only fields --- \\
-
-    public boolean isAirborne() {
-        return airborne;
-    }
 
     public boolean isJumping() {
         return isJumping;
