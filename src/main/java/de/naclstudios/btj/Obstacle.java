@@ -3,12 +3,21 @@ package de.naclstudios.btj;
 import de.edgelord.saltyengine.core.event.CollisionEvent;
 import de.edgelord.saltyengine.core.graphics.SaltyGraphics;
 import de.edgelord.saltyengine.gameobject.GameObject;
-import de.edgelord.saltyengine.utils.ColorUtil;
+import de.edgelord.saltyengine.transform.Transform;
+
+import java.awt.*;
 
 public class Obstacle extends GameObject {
 
+    Color color;
+
     public Obstacle(float xPos, float yPos, float width, float height, String tag) {
         super(xPos, yPos, width, height, tag);
+    }
+
+    public Obstacle(Transform transform, Color color, String tag) {
+        super(transform, tag);
+        this.color = color;
     }
 
     @Override
@@ -26,7 +35,7 @@ public class Obstacle extends GameObject {
 
     @Override
     public void draw(SaltyGraphics saltyGraphics) {
-        saltyGraphics.setColor(ColorUtil.FOREST_GREEN);
+        saltyGraphics.setColor(color);
         saltyGraphics.drawRect(this);
     }
 }
