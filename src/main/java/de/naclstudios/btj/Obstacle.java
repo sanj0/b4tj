@@ -11,8 +11,9 @@ public class Obstacle extends GameObject {
 
     Color color;
 
-    public Obstacle(float xPos, float yPos, float width, float height, String tag) {
+    public Obstacle(float xPos, float yPos, float width, float height, Color color, String tag) {
         super(xPos, yPos, width, height, tag);
+        this.color = color;
     }
 
     public Obstacle(Transform transform, Color color, String tag) {
