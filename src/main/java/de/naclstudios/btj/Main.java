@@ -11,6 +11,8 @@ import de.edgelord.saltyengine.transform.Dimensions;
 import de.edgelord.saltyengine.transform.Vector2f;
 import de.naclstudios.btj.enemy.DummyEnemy;
 
+import java.awt.*;
+
 public class Main extends Game {
 
     public static void main(String[] args) {
@@ -20,9 +22,9 @@ public class Main extends Game {
             public void initialize() {
                 setGravity(1200);
                 addGameObject(new Player(500, 500));
-                addGameObject(new Obstacle(0, 900, 1000, 10, "floor"));
-                addGameObject(new Obstacle(1200, 1200, 1000, 10, "floor1"));
-                addGameObject(new Obstacle(2000, 1000, 1000, 10, "floor2"));
+                addGameObject(new Obstacle(0, 900, 1000, 10, Color.BLACK,"floor"));
+                addGameObject(new Obstacle(1200, 1200, 1000, 10, Color.BLACK,"floor1"));
+                addGameObject(new Obstacle(2000, 1000, 1000, 10, Color.BLACK,"floor2"));
                 addGameObject(new DummyEnemy(1200, 0, getGameObjects().get(2)));
                 addDrawingRoutine(new DrawingRoutine(DrawingRoutine.DrawingPosition.BEFORE_GAMEOBJECTS) {
                     final SaltyImage img = new InnerResource().getImageResource("assets/sam.jpeg");
