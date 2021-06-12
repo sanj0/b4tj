@@ -10,7 +10,7 @@ import de.edgelord.saltyengine.emitter.prc.RandomColorProfileParticleRenderConte
 import de.edgelord.saltyengine.gameobject.GameObject;
 import de.edgelord.saltyengine.transform.Vector2f;
 import de.edgelord.saltyengine.utils.ColorUtil;
-import de.edgelord.saltyengine.utils.GeneralUtil;
+import de.edgelord.saltyengine.utils.Directions;
 
 import java.awt.*;
 import java.util.Optional;
@@ -19,14 +19,16 @@ public class Detonation extends GameObject {
 
     public static final String TAG = "detonation";
     public static int duration = 100;
-    public static float knockBack = 50;
+    public static float knockBack = 5000;
+    public static float maxImpulse = 500000;
 
     private final int damage;
     private int ticks = 0;
 
     private final EmitterComponent emitter = new RandomRadialEmitter(this, "particles", RectangleParticle.class, 2f, 25);
+
     public Detonation(final Vector2f centre, final float radius, final int damage) {
-        super(centre.getX() - radius *.5f, centre.getY() - radius *.5f, radius, radius, TAG);
+        super(centre.getX() - radius * .5f, centre.getY() - radius * .5f, radius, radius, TAG);
 
         this.damage = damage;
     }
@@ -45,17 +47,29 @@ public class Detonation extends GameObject {
     public void onCollision(final CollisionEvent event) {
         final Optional<B4TJEntity> b4TJEntity = B4TJUtils.optionalB4TJEntity(event.getOtherGameObject());
         if (!b4TJEntity.isPresent()) {
-            // entity doesn't have health, so it isn't affected by the detonation
             return;
         }
         final B4TJEntity entity = b4TJEntity.get();
         entity.damage(damage);
         final Vector2f centre = getTransform().getCentre();
         final Vector2f otherCentre = entity.getTransform().getCentre();
-        // and, more importantly, knock back
-        final float projectionDegree = GeneralUtil.getAngle(centre, otherCentre);
-        entity.moveInAngle(projectionDegree, knockBack * getWidth() / 2f / centre.distance(otherCentre));
-        //fixme: GameObject#accelerate doesn't work for knock-back because the forces are reset before they apply
+        final float d = centre.distance(otherCentre);
+        final float r = getWidth();
+        final float significantDistance = r - d; /*so that knockback decreases with distance*/
+        float x = significantDistance / (otherCentre.getX() - centre.getX()) * knockBack;
+        float y = significantDistance / -(otherCentre.getY() - centre.getY()) * knockBack;
+        x = Math.min(Math.abs(x), maxImpulse) * Math.signum(x);
+        y = Math.min(Math.abs(y), maxImpulse) * Math.signum(y);
+        if (x > 0) {
+            entity.accelerate(x, Directions.Direction.RIGHT);
+        } else {
+            entity.accelerate(-x, Directions.Direction.LEFT);
+        }
+        if (y > 0) {
+            entity.accelerate(y, Directions.Direction.UP);
+        } else {
+            entity.accelerate(-y, Directions.Direction.DOWN);
+        }
     }
 
     @Override

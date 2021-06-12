@@ -52,7 +52,6 @@ public abstract class B4TJEntity extends GameObject {
 
     private void b4tjInit() {
         addComponent(collisionOverlapFixer);
-        getPhysics().addTagToIgnore(Dynamite.TAG);
     }
 
     @Override

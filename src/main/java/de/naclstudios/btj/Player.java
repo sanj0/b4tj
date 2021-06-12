@@ -61,7 +61,7 @@ public class Player extends B4TJEntity {
     @Override
     public void initialize() {
         getPhysics().setGravityEnabled(true);
-
+        getPhysics().addTagToIgnore(Dynamite.TAG);
     }
 
     @Override
