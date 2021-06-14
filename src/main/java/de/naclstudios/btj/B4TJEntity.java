@@ -27,26 +27,30 @@ public abstract class B4TJEntity extends GameObject {
 
     public B4TJEntity(final float xPos, final float yPos, final float width, final float height, final String tag) {
         super(xPos, yPos, width, height, tag);
-        addComponent(collisionOverlapFixer);
+        b4tjInit();
     }
 
     public B4TJEntity(final Transform transform, final String tag) {
         super(transform, tag);
-        addComponent(collisionOverlapFixer);
+        b4tjInit();
     }
 
     public B4TJEntity(final Vector2f position, final Dimensions dimensions, final String tag) {
         super(position, dimensions, tag);
-        addComponent(collisionOverlapFixer);
+        b4tjInit();
     }
 
     public B4TJEntity(final Vector2f position, final float width, final float height, final String tag) {
         super(position, width, height, tag);
-        addComponent(collisionOverlapFixer);
+        b4tjInit();
     }
 
     public B4TJEntity(final float xPos, final float yPos, final Dimensions dimensions, final String tag) {
         super(xPos, yPos, dimensions, tag);
+        b4tjInit();
+    }
+
+    private void b4tjInit() {
         addComponent(collisionOverlapFixer);
     }
 

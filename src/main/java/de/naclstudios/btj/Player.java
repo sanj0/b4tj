@@ -1,6 +1,7 @@
 package de.naclstudios.btj;
 
 import de.edgelord.saltyengine.components.CameraFollowComponent;
+import de.edgelord.saltyengine.core.SceneManager;
 import de.edgelord.saltyengine.core.event.CollisionEvent;
 import de.edgelord.saltyengine.core.graphics.SaltyGraphics;
 import de.edgelord.saltyengine.input.Input;
@@ -43,6 +44,8 @@ public class Player extends B4TJEntity {
     private int currentFuel = maxFuel;
     private int fuelReload = 1;
 
+    private boolean bombLaid = false;
+
     public Player(float xPos, float yPos) {
         super(xPos, yPos, WIDTH, HEIGHT, TAG);
 
@@ -63,7 +66,7 @@ public class Player extends B4TJEntity {
     @Override
     public void initialize() {
         getPhysics().setGravityEnabled(true);
-
+        getPhysics().addTagToIgnore(Dynamite.TAG);
     }
 
     @Override
@@ -98,6 +101,13 @@ public class Player extends B4TJEntity {
         } else {
             hasJumped = false;
             currentFuel = Math.min(currentFuel + fuelReload, maxFuel);
+        }
+
+        if (Input.getInput().hasDirection(Directions.Direction.DOWN) && !bombLaid) {
+            SceneManager.getCurrentScene().addGameObject(new Dynamite(getX(), getY()));
+            bombLaid = true;
+        } else if (!Input.getInput().hasDirection(Directions.Direction.DOWN)) {
+            bombLaid = false;
         }
         lastX = getX();
         lastY = getY();
