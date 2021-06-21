@@ -2,9 +2,9 @@ package de.naclstudios.btj.components;
 
 import de.edgelord.saltyengine.components.Component;
 import de.edgelord.saltyengine.core.graphics.SaltyGraphics;
-import de.naclstudios.btj.B4TJEntity;
+import de.naclstudios.btj.enemy.Enemy;
 
-public abstract class EnemyMovement< T extends B4TJEntity> extends Component< T > {
+public abstract class EnemyMovement<T extends Enemy> extends Component<T> {
 
     public static final String TAG = "de.naclstudios.enemymovement";
 

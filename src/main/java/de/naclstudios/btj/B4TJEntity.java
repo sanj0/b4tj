@@ -9,6 +9,7 @@ import de.edgelord.saltyengine.transform.Vector2f;
 import de.edgelord.saltyengine.utils.Directions;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * health and other general b4tj-specific
@@ -20,6 +21,7 @@ public abstract class B4TJEntity extends GameObject {
     public static final int DEFAULT_CURRENT_HEALTH = DEFAULT_MAX_HEALTH;
 
     private boolean grounded = false;
+    private GameObject platform;
     private int maxHealth = DEFAULT_MAX_HEALTH;
     private int currentHealth = DEFAULT_CURRENT_HEALTH;
 
@@ -59,7 +61,14 @@ public abstract class B4TJEntity extends GameObject {
         grounded = false;
         final int nCollisions = collisions.size();
         for (int i = 0; i < nCollisions; i++) {
-            if (collisions.get(i).getCollisionDirection() == Directions.Direction.DOWN) {
+            CollisionEvent e = collisions.get(i);
+            if (e.getCollisionDirection() == Directions.Direction.DOWN) {
+                Optional<B4TJEntity> optionalB4TJEntity = B4TJUtils.optionalB4TJEntity(e.getOtherGameObject());
+                if (optionalB4TJEntity.isPresent()) {
+                    platform = optionalB4TJEntity.get().getPlatform();
+                } else {
+                    platform = e.getOtherGameObject();
+                }
                 grounded = true;
             }
         }
@@ -132,5 +141,9 @@ public abstract class B4TJEntity extends GameObject {
      */
     public boolean isGrounded() {
         return grounded;
+    }
+
+    public GameObject getPlatform() {
+        return platform;
     }
 }

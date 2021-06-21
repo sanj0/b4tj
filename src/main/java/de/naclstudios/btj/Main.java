@@ -21,11 +21,12 @@ public class Main extends Game {
             @Override
             public void initialize() {
                 setGravity(1200);
-                addGameObject(new Player(500, 500));
-                addGameObject(new Obstacle(0, 900, 1000, 10, Color.BLACK,"floor"));
-                addGameObject(new Obstacle(1200, 1200, 1000, 10, Color.BLACK,"floor1"));
-                addGameObject(new Obstacle(2000, 1000, 1000, 10, Color.BLACK,"floor2"));
-                addGameObject(new DummyEnemy(1200, 0, getGameObjects().get(2)));
+                Player player = new Player(500, 500);
+                addGameObject(player);
+                addGameObject(new Obstacle(0, 900, 1400, 10, Color.BLACK, "floor"));
+                addGameObject(new Obstacle(1200, 1200, 1000, 10, Color.BLACK, "floor1"));
+                addGameObject(new Obstacle(2000, 1000, 1000, 10, Color.BLACK, "floor2"));
+                addGameObject(new DummyEnemy(1200, 0, getGameObjects().get(2), player));
                 addDrawingRoutine(new DrawingRoutine(DrawingRoutine.DrawingPosition.BEFORE_GAMEOBJECTS) {
                     final SaltyImage img = new InnerResource().getImageResource("assets/sam.jpeg");
 
