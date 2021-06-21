@@ -2,9 +2,9 @@ package de.naclstudios.btj.components;
 
 import de.edgelord.saltyengine.core.event.CollisionEvent;
 import de.edgelord.saltyengine.gameobject.GameObject;
-import de.naclstudios.btj.B4TJEntity;
+import de.naclstudios.btj.enemy.Enemy;
 
-public class OscillateSinglePlatformEnemyMovement< T extends B4TJEntity> extends EnemyMovement< T > {
+public class OscillateSinglePlatformEnemyMovement<T extends Enemy> extends EnemyMovement<T> {
 
     private GameObject platform;
     private boolean walkingLeft = true;
