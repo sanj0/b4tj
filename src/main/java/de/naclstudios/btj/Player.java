@@ -45,6 +45,7 @@ public class Player extends B4TJEntity {
     private int fuelReload = 1;
 
     private boolean bombLaid = false;
+    private boolean canPlaceBomb = true;
 
     public Player(float xPos, float yPos) {
         super(xPos, yPos, WIDTH, HEIGHT, TAG);
@@ -103,9 +104,10 @@ public class Player extends B4TJEntity {
             currentFuel = Math.min(currentFuel + fuelReload, maxFuel);
         }
 
-        if (Input.getInput().hasDirection(Directions.Direction.DOWN) && !bombLaid) {
-            SceneManager.getCurrentScene().addGameObject(new Dynamite(getX(), getY()));
+        if (Input.getInput().hasDirection(Directions.Direction.DOWN) && !bombLaid && canPlaceBomb) {
+            SceneManager.getCurrentScene().addGameObject(new Dynamite(getX(), getY(), this));
             bombLaid = true;
+            canPlaceBomb = false;
         } else if (!Input.getInput().hasDirection(Directions.Direction.DOWN)) {
             bombLaid = false;
         }
@@ -119,6 +121,10 @@ public class Player extends B4TJEntity {
         saltyGraphics.setColor(ColorUtil.PURPLE_COLOR);
         saltyGraphics.outlineRect(25, 25, 200, 30);
         saltyGraphics.drawRect(25, 25, 200f * currentFuel / maxFuel, 30);
+    }
+
+    public void detonationHappened() {
+        this.canPlaceBomb = true;
     }
 
     // --- getters for get-only fields --- \\
