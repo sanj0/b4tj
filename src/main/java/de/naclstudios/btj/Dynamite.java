@@ -19,13 +19,16 @@ public class Dynamite extends GameObject {
     public static final String TAG = "dynamite";
 
     private int lifeTime = 0;
+    private final Player origin;
 
-    public Dynamite(final float xPos, final float yPos) {
+    public Dynamite(final float xPos, final float yPos, Player origin) {
         super(xPos, yPos, WIDTH, HEIGHT, TAG);
+        this.origin = origin;
     }
 
     public void detonate() {
         SceneManager.getCurrentScene().addGameObject(new Detonation(getTransform().getCentre(), radius, damage));
+        origin.setBombOnCooldown(false);
     }
 
     @Override
