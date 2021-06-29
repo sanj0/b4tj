@@ -24,13 +24,15 @@ public class Detonation extends GameObject {
 
     private final int damage;
     private int ticks = 0;
+    private final Player origin;
 
     private final EmitterComponent emitter = new RandomRadialEmitter(this, "particles", RectangleParticle.class, 2f, 25);
 
-    public Detonation(final Vector2f centre, final float radius, final int damage) {
+    public Detonation(final Vector2f centre, final float radius, final int damage, final Player origin) {
         super(centre.getX() - radius * .5f, centre.getY() - radius * .5f, radius, radius, TAG);
 
         this.damage = damage;
+        this.origin = origin;
     }
 
     @Override
@@ -76,6 +78,7 @@ public class Detonation extends GameObject {
     public void onFixedTick() {
         if (ticks >= duration) {
             removeFromCurrentScene();
+            origin.detonationHappened();
         } else {
             ticks++;
         }
