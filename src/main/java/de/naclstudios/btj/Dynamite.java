@@ -27,7 +27,7 @@ public class Dynamite extends GameObject {
     }
 
     public void detonate() {
-        SceneManager.getCurrentScene().addGameObject(new Detonation(getTransform().getCentre(), radius, damage));
+        SceneManager.getCurrentScene().addGameObject(new Detonation(getTransform().getCentre(), radius, damage, origin));
         origin.setBombOnCooldown(false);
     }
 
