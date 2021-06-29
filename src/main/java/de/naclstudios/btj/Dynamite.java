@@ -8,7 +8,6 @@ import de.edgelord.saltyengine.graphics.image.SaltyImage;
 import de.edgelord.saltyengine.resource.InnerResource;
 import de.edgelord.saltyengine.utils.ColorUtil;
 import de.edgelord.saltyengine.utils.ImageUtils;
-import de.edgelord.saltyengine.utils.SaltySystem;
 
 import java.awt.*;
 
@@ -29,13 +28,15 @@ public class Dynamite extends GameObject {
     public static final String TAG = "dynamite";
 
     private int lifeTime = 0;
+    private final Player origin;
 
-    public Dynamite(final float xPos, final float yPos) {
+    public Dynamite(final float xPos, final float yPos, final Player origin) {
         super(xPos, yPos, WIDTH, HEIGHT, TAG);
+        this.origin = origin;
     }
 
     public void detonate() {
-        SceneManager.getCurrentScene().addGameObject(new Detonation(getTransform().getCentre(), radius, damage));
+        SceneManager.getCurrentScene().addGameObject(new Detonation(getTransform().getCentre(), radius, damage, origin));
     }
 
     @Override
