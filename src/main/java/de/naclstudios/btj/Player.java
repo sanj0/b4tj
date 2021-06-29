@@ -45,6 +45,7 @@ public class Player extends B4TJEntity {
     private int fuelReload = 1;
 
     private boolean bombLaid = false;
+    private boolean bombOnCooldown = false;
 
     public Player(float xPos, float yPos) {
         super(xPos, yPos, WIDTH, HEIGHT, TAG);
@@ -103,9 +104,10 @@ public class Player extends B4TJEntity {
             currentFuel = Math.min(currentFuel + fuelReload, maxFuel);
         }
 
-        if (Input.getInput().hasDirection(Directions.Direction.DOWN) && !bombLaid) {
-            SceneManager.getCurrentScene().addGameObject(new Dynamite(getX(), getY()));
+        if (Input.getKeyboardInput().isQ() && !bombLaid && !bombOnCooldown) {
+            SceneManager.getCurrentScene().addGameObject(new Dynamite(getX(), getY(), this));
             bombLaid = true;
+            bombOnCooldown = true;
         } else if (!Input.getInput().hasDirection(Directions.Direction.DOWN)) {
             bombLaid = false;
         }
@@ -167,5 +169,13 @@ public class Player extends B4TJEntity {
 
     public void setFuelReload(int fuelReload) {
         this.fuelReload = fuelReload;
+    }
+
+    public boolean isBombOnCooldown() {
+        return bombOnCooldown;
+    }
+
+    public void setBombOnCooldown(boolean bombOnCooldown) {
+        this.bombOnCooldown = bombOnCooldown;
     }
 }
