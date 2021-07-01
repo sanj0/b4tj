@@ -31,6 +31,7 @@ public class Detonation extends GameObject {
         super(centre.getX() - radius * .5f, centre.getY() - radius * .5f, radius, radius, TAG);
 
         this.damage = damage;
+        origin.setBombOnCooldown(false);
     }
 
     @Override
