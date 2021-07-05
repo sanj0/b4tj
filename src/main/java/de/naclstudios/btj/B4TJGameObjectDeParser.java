@@ -20,6 +20,9 @@ public class B4TJGameObjectDeParser implements SJGameObjectDeParser {
             case Player.TAG:
                 clazz.addValue(SJFormatKeys.KEY_TRANSFORM, object.getTransform());
                 return clazz;
+            case B4TJGameObjectParser.ID_ROCK:
+                clazz.addValue(SJFormatKeys.KEY_POSITION, object.getPosition());
+                return clazz;
         }
 
         return clazz;
