@@ -18,7 +18,7 @@ import java.awt.*;
 
 public class DestroyableRock extends GameObject {
 
-    public static final String TAG = "destroyable-rock";
+    public static final String TAG = "rock";
     public static final float WIDTH = 902f / 10;
     public static final float HEIGHT = 674f / 10;
     public static final String SPRITE_PATH = "assets/rock.png";
