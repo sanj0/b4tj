@@ -14,6 +14,7 @@ import static de.edgelord.saltyengine.si.SJFormatKeys.*;
 public class B4TJGameObjectParser implements SJGameObjectParser {
 
     public static final String ID_PLATFORM = "platform";
+    public static final String ID_ROCK = "rock";
     public static final String ID_PLAYER = "player";
 
     public static final Vector2f DEFAULT_PLATFORM_POSITION = Vector2f.zero();
@@ -29,7 +30,9 @@ public class B4TJGameObjectParser implements SJGameObjectParser {
                         ID_PLATFORM);
             case ID_PLAYER:
                 return new Player((Vector2f) attributes.get(KEY_POSITION));
-
+            case ID_ROCK:
+                final Vector2f pos = (Vector2f) attributes.get(KEY_POSITION);
+                return new DestroyableRock(pos.getX(), pos.getY());
             default:
                 return null;
         }

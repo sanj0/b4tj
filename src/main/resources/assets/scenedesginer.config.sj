@@ -1,6 +1,7 @@
 >meta-inf
-    ?default-id=platform
+    ?default-id=rock
 >platform
     ?size=100, 15
     ?color="BLACK"
 >player
+>rock
