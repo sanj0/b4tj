@@ -146,4 +146,8 @@ public abstract class B4TJEntity extends GameObject {
     public GameObject getPlatform() {
         return platform;
     }
+
+    public void setPlatform(GameObject platform) {
+        this.platform = platform;
+    }
 }
