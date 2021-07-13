@@ -15,12 +15,7 @@ public class DummyEnemy extends Enemy {
     }
 
     @Override
-    public void onCollision(final CollisionEvent event) {
-    }
-
-    @Override
     public void onFixedTick() {
-
     }
 
     @Override

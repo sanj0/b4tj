@@ -14,11 +14,12 @@ import static de.edgelord.saltyengine.si.SJFormatKeys.*;
 public class B4TJGameObjectParser implements SJGameObjectParser {
 
     public static final String ID_PLATFORM = "platform";
-    public static final String ID_ROCK = "rock";
-    public static final String ID_PLAYER = "player";
+    public static final String ID_ROCK = DestroyableRock.TAG;
+    public static final String ID_PLAYER = Player.TAG;
 
     public static final Vector2f DEFAULT_PLATFORM_POSITION = Vector2f.zero();
     public static final Dimensions DEFAULT_PLATFORM_SIZE = new Dimensions(100, 15);
+    public static final Dimensions DEFAULT_ROCK_SIZE = new Dimensions(DestroyableRock.WIDTH, DestroyableRock.HEIGHT);
 
     @Override
     public GameObject parseGameObject(Map<String, Object> attributes) {
@@ -31,8 +32,8 @@ public class B4TJGameObjectParser implements SJGameObjectParser {
             case ID_PLAYER:
                 return new Player((Vector2f) attributes.get(KEY_POSITION));
             case ID_ROCK:
-                final Vector2f pos = (Vector2f) attributes.get(KEY_POSITION);
-                return new DestroyableRock(pos.getX(), pos.getY());
+                final Transform t = SJGameObjectParser.parseTransform(attributes, Vector2f.zero(), DEFAULT_ROCK_SIZE);
+                return new DestroyableRock(t.getX(), t.getY());
             default:
                 return null;
         }

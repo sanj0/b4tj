@@ -1,6 +1,7 @@
 package de.naclstudios.btj;
 
 import de.edgelord.saltyengine.gameobject.GameObject;
+import de.edgelord.saltyengine.si.SJFormatKeys;
 import de.edgelord.saltyengine.si.SJGameObjectDeParser;
 import de.edgelord.sanjo.SJClass;
 

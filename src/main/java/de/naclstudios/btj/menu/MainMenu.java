@@ -5,6 +5,7 @@ import de.edgelord.saltyengine.core.SceneManager;
 import de.edgelord.saltyengine.core.graphics.SaltyGraphics;
 import de.edgelord.saltyengine.gameobject.DrawingRoutine;
 import de.edgelord.saltyengine.graphics.image.SaltyImage;
+import de.edgelord.saltyengine.graphics.light.StaticLightSystem;
 import de.edgelord.saltyengine.resource.InnerResource;
 import de.edgelord.saltyengine.scene.Scene;
 import de.edgelord.saltyengine.transform.Dimensions;
@@ -18,6 +19,7 @@ import de.edgelord.saltyengine.utils.SaltySystem;
 import de.naclstudios.btj.DestroyableRock;
 import de.naclstudios.btj.Obstacle;
 import de.naclstudios.btj.Player;
+import de.naclstudios.btj.Storm;
 import de.naclstudios.btj.enemy.DummyEnemy;
 
 import java.awt.*;
@@ -28,6 +30,8 @@ import java.awt.event.MouseEvent;
  */
 public class MainMenu extends Scene {
 
+    public static final Color BACKGROUND_COLOR = new Color(40, 44, 52);
+
     private Label titleLbl;
     private Button startBtn;
     private Button creditsBtn;
@@ -37,16 +41,17 @@ public class MainMenu extends Scene {
     private final int buttonHeight = 40;
     private final float btnX = Game.getHost().getHorizontalCentrePosition(buttonWidth);
     private final float btnY0 = Positions.yForDecimal(.35f);
-    private final float buttonOffsetY = buttonHeight + 75;
+    private final float buttonOffsetY = buttonHeight + 50;
     private final Font btnFont = SaltySystem.defaultFont.deriveFont(15f).deriveFont(Font.BOLD);
 
     @Override
     public void initialize() {
+        Game.getHost().setBackgroundColor(BACKGROUND_COLOR);
         titleLbl = new BorderedLabel("Before the Junk", new Vector2f(0, 100), Game.getGameWidth(), 100);
         titleLbl.setFont(titleLbl.getFont().deriveFont(75f).deriveFont(Font.BOLD));
-        titleLbl.setForegroundColor(Color.BLACK);
+        titleLbl.setForegroundColor(ColorUtil.GOLD);
 
-        startBtn = new Button("start.", btnX, btnY0, buttonWidth, buttonHeight) {
+        startBtn = new Button("start", btnX, btnY0, buttonWidth, buttonHeight) {
             @Override
             public void onClick(MouseEvent e) {
                 SceneManager.setCurrentScene(new Scene() {
@@ -67,6 +72,8 @@ public class MainMenu extends Scene {
                                 saltyGraphics.drawImage(img, Vector2f.zero(), new Dimensions(2000, 1000));
                             }
                         });
+                        addGameObject(new Storm());
+                        setLightSystem(new StaticLightSystem(ColorUtil.withAlpha(ColorUtil.NAVY_BLUE_COLOR, 0.35f)));
                     }
                 });
             }
@@ -74,7 +81,7 @@ public class MainMenu extends Scene {
         startBtn.setBackgroundColor(ColorUtil.DEEP_PINK);
         startBtn.setFont(btnFont);
 
-        creditsBtn = new Button("credits.", btnX, btnY0 + buttonOffsetY, buttonWidth, buttonHeight) {
+        creditsBtn = new Button("credits", btnX, btnY0 + buttonOffsetY, buttonWidth, buttonHeight) {
             @Override
             public void onClick(MouseEvent e) {
 
@@ -83,7 +90,7 @@ public class MainMenu extends Scene {
         creditsBtn.setBackgroundColor(ColorUtil.CRIMSON_RED);
         creditsBtn.setFont(btnFont);
 
-        quitBtn = new Button("quit.", btnX, btnY0 + buttonOffsetY * 2, buttonWidth, buttonHeight) {
+        quitBtn = new Button("quit", btnX, btnY0 + buttonOffsetY * 2, buttonWidth, buttonHeight) {
             @Override
             public void onClick(MouseEvent e) {
                 Game.quit();
