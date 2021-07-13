@@ -16,14 +16,12 @@ import de.edgelord.saltyengine.ui.elements.Label;
 import de.edgelord.saltyengine.utils.ColorUtil;
 import de.edgelord.saltyengine.utils.Positions;
 import de.edgelord.saltyengine.utils.SaltySystem;
-import de.naclstudios.btj.DestroyableRock;
-import de.naclstudios.btj.Obstacle;
-import de.naclstudios.btj.Player;
-import de.naclstudios.btj.Storm;
+import de.naclstudios.btj.*;
 import de.naclstudios.btj.enemy.DummyEnemy;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 /**
  * The game's main menu
@@ -57,6 +55,7 @@ public class MainMenu extends Scene {
                 SceneManager.setCurrentScene(new Scene() {
                     @Override
                     public void initialize() {
+                        Main.au.loop("rain");
                         setGravity(1200);
                         addGameObject(new Player(500, 500));
                         addGameObject(new Obstacle(0, 900, 1000, 10, Color.BLACK,"floor"));
@@ -73,7 +72,7 @@ public class MainMenu extends Scene {
                             }
                         });
                         addGameObject(new Storm());
-                        setLightSystem(new StaticLightSystem(ColorUtil.withAlpha(ColorUtil.NAVY_BLUE_COLOR, 0.35f)));
+                        setLightSystem(new StaticLightSystem(ColorUtil.withAlpha(ColorUtil.MIDNIGHT_BLUE, 0.35f)));
                     }
                 });
             }
@@ -84,7 +83,11 @@ public class MainMenu extends Scene {
         creditsBtn = new Button("credits", btnX, btnY0 + buttonOffsetY, buttonWidth, buttonHeight) {
             @Override
             public void onClick(MouseEvent e) {
-
+                try {
+                    Desktop.getDesktop().open(new InnerResource().getFileResource("assets/credits.mp4"));
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         };
         creditsBtn.setBackgroundColor(ColorUtil.CRIMSON_RED);

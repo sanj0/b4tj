@@ -6,8 +6,6 @@ import de.edgelord.saltyengine.si.SJGameObjectDeParser;
 import de.edgelord.sanjo.SJClass;
 import de.edgelord.sanjo.SJValue;
 
-import static de.edgelord.saltyengine.si.SJGameObjectDeParser.*;
-
 public class B4TJGameObjectDeParser implements SJGameObjectDeParser {
     private int gameObjectNum = 0;
     @Override
@@ -18,16 +16,16 @@ public class B4TJGameObjectDeParser implements SJGameObjectDeParser {
             case B4TJGameObjectParser.ID_PLATFORM:
                 final Obstacle platform = (Obstacle) object;
                 clazz.addValue(new SJValue(SJFormatKeys.KEY_ID, B4TJGameObjectParser.ID_PLATFORM));
-                clazz.addValue(deparseColor(platform.color, true));
-                clazz.addValue(deparseTransform(platform.getTransform()));
+                //clazz.addValue(deparseColor(platform.color, true));
+                //clazz.addValue(deparseTransform(platform.getTransform()));
                 return clazz;
             case Player.TAG:
                 clazz.addValue(new SJValue(SJFormatKeys.KEY_ID, B4TJGameObjectParser.ID_PLAYER));
-                clazz.addValue(deparseTransform(object.getTransform()));
+                //clazz.addValue(deparseTransform(object.getTransform()));
                 return clazz;
             case B4TJGameObjectParser.ID_ROCK:
                 clazz.addValue(new SJValue(SJFormatKeys.KEY_ID, B4TJGameObjectParser.ID_ROCK));
-                clazz.addValue(deparseTransform(object.getTransform()));
+                //clazz.addValue(deparseTransform(object.getTransform()));
                 return clazz;
         }
 

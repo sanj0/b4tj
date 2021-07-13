@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class LevelDesigner extends Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Main.main(args);
         try {
             SceneManager.setCurrentScene(new DesignerScene("assets/scenedesginer.config.sj",
