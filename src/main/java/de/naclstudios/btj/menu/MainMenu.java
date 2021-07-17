@@ -52,29 +52,7 @@ public class MainMenu extends Scene {
         startBtn = new Button("start", btnX, btnY0, buttonWidth, buttonHeight) {
             @Override
             public void onClick(MouseEvent e) {
-                SceneManager.setCurrentScene(new Scene() {
-                    @Override
-                    public void initialize() {
-                        Main.au.loop("rain");
-                        setGravity(1200);
-                        addGameObject(new Player(500, 500));
-                        addGameObject(new Obstacle(0, 900, 1000, 10, Color.BLACK,"floor"));
-                        addGameObject(new Obstacle(1200, 1200, 1000, 10, Color.BLACK,"floor1"));
-                        addGameObject(new Obstacle(2000, 1000, 1000, 10, Color.BLACK,"floor2"));
-                        addGameObject(new DummyEnemy(1200, 0, getGameObjects().get(2)));
-                        addGameObject(new DestroyableRock(1500, 1100));
-                        addDrawingRoutine(new DrawingRoutine(DrawingRoutine.DrawingPosition.BEFORE_GAMEOBJECTS) {
-                            final SaltyImage img = new InnerResource().getImageResource("assets/sam.jpeg");
-
-                            @Override
-                            public void draw(SaltyGraphics saltyGraphics) {
-                                saltyGraphics.drawImage(img, Vector2f.zero(), new Dimensions(2000, 1000));
-                            }
-                        });
-                        addGameObject(new Storm());
-                        setLightSystem(new StaticLightSystem(ColorUtil.withAlpha(ColorUtil.MIDNIGHT_BLUE, 0.35f)));
-                    }
-                });
+                SceneManager.setCurrentScene(new Level1());
             }
         };
         startBtn.setBackgroundColor(ColorUtil.DEEP_PINK);
