@@ -2,13 +2,8 @@ package de.naclstudios.btj.menu;
 
 import de.edgelord.saltyengine.core.Game;
 import de.edgelord.saltyengine.core.SceneManager;
-import de.edgelord.saltyengine.core.graphics.SaltyGraphics;
-import de.edgelord.saltyengine.gameobject.DrawingRoutine;
-import de.edgelord.saltyengine.graphics.image.SaltyImage;
-import de.edgelord.saltyengine.graphics.light.StaticLightSystem;
 import de.edgelord.saltyengine.resource.InnerResource;
 import de.edgelord.saltyengine.scene.Scene;
-import de.edgelord.saltyengine.transform.Dimensions;
 import de.edgelord.saltyengine.transform.Vector2f;
 import de.edgelord.saltyengine.ui.elements.BorderedLabel;
 import de.edgelord.saltyengine.ui.elements.Button;
@@ -16,8 +11,7 @@ import de.edgelord.saltyengine.ui.elements.Label;
 import de.edgelord.saltyengine.utils.ColorUtil;
 import de.edgelord.saltyengine.utils.Positions;
 import de.edgelord.saltyengine.utils.SaltySystem;
-import de.naclstudios.btj.*;
-import de.naclstudios.btj.enemy.DummyEnemy;
+import de.naclstudios.btj.Level1;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
