@@ -5,6 +5,8 @@ import de.edgelord.saltyengine.si.SJGameObjectParser;
 import de.edgelord.saltyengine.transform.Dimensions;
 import de.edgelord.saltyengine.transform.Transform;
 import de.edgelord.saltyengine.transform.Vector2f;
+import de.naclstudios.btj.enemy.DummyEnemy;
+import de.naclstudios.btj.enemy.Enemy;
 
 import java.awt.*;
 import java.util.Map;
@@ -34,6 +36,13 @@ public class B4TJGameObjectParser implements SJGameObjectParser {
             case ID_ROCK:
                 final Transform t = SJGameObjectParser.parseTransform(attributes, Vector2f.zero(), DEFAULT_ROCK_SIZE);
                 return new DestroyableRock(t.getX(), t.getY());
+            case "background":
+                return new Level1Background();
+            case "rain":
+                return new Storm();
+            case "enemy":
+                final Transform tr = SJGameObjectParser.parseTransform(attributes, Vector2f.zero(), Dimensions.zero());
+                return new DummyEnemy(tr.getX(), tr.getY(), null);
             default:
                 return null;
         }

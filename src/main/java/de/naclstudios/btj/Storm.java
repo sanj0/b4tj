@@ -20,6 +20,7 @@ public class Storm extends EmptyGameObject {
 
     public Storm() {
         super(0, 0, Game.getGameWidth(), 0, "storm");
+        Main.au.loop("rain");
 
         rainEmitter.setFixedMinParticleDimensions(new Dimensions(1, 15));
         rainEmitter.setFixedMaxParticleDimensions(new Dimensions(3, 30));

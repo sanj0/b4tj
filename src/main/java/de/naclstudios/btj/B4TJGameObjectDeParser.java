@@ -16,16 +16,26 @@ public class B4TJGameObjectDeParser implements SJGameObjectDeParser {
             case B4TJGameObjectParser.ID_PLATFORM:
                 final Obstacle platform = (Obstacle) object;
                 clazz.addValue(new SJValue(SJFormatKeys.KEY_ID, B4TJGameObjectParser.ID_PLATFORM));
-                //clazz.addValue(deparseColor(platform.color, true));
-                //clazz.addValue(deparseTransform(platform.getTransform()));
+                clazz.addValue(SJGameObjectDeParser.deparseColor(platform.color, true));
+                clazz.addValue(SJGameObjectDeParser.deparseTransform(platform.getTransform()));
                 return clazz;
             case Player.TAG:
                 clazz.addValue(new SJValue(SJFormatKeys.KEY_ID, B4TJGameObjectParser.ID_PLAYER));
-                //clazz.addValue(deparseTransform(object.getTransform()));
+                clazz.addValue(SJGameObjectDeParser.deparseTransform(object.getTransform()));
                 return clazz;
             case B4TJGameObjectParser.ID_ROCK:
                 clazz.addValue(new SJValue(SJFormatKeys.KEY_ID, B4TJGameObjectParser.ID_ROCK));
-                //clazz.addValue(deparseTransform(object.getTransform()));
+                clazz.addValue(SJGameObjectDeParser.deparseTransform(object.getTransform()));
+                return clazz;
+            case "background":
+                clazz.addValue(new SJValue(SJFormatKeys.KEY_ID, "background"));
+                return clazz;
+            case "rain":
+                clazz.addValue(new SJValue(SJFormatKeys.KEY_ID, "rain"));
+                return clazz;
+            case "enemy":
+                clazz.addValue(new SJValue(SJFormatKeys.KEY_ID, "enemy"));
+                clazz.addValue(SJGameObjectDeParser.deparseTransform(object.getTransform()));
                 return clazz;
         }
 
