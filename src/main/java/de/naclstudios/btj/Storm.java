@@ -2,8 +2,6 @@ package de.naclstudios.btj;
 
 import de.edgelord.saltyengine.core.Game;
 import de.edgelord.saltyengine.emitter.EmitterComponent;
-import de.edgelord.saltyengine.emitter.Particle;
-import de.edgelord.saltyengine.emitter.ParticleModifier;
 import de.edgelord.saltyengine.emitter.components.RandomRainEmitter;
 import de.edgelord.saltyengine.emitter.modifiers.RandomSpeedParticleModifier;
 import de.edgelord.saltyengine.emitter.particles.RectangleParticle;
@@ -21,6 +19,7 @@ public class Storm extends EmptyGameObject {
 
     public Storm() {
         super(0, 0, Game.getGameWidth() * 2f, 0, "storm");
+        Main.au.loop("rain");
 
         rainEmitter.setFixedMinParticleDimensions(new Dimensions(1, 35));
         rainEmitter.setFixedMaxParticleDimensions(new Dimensions(3, 50));

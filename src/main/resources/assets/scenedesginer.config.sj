@@ -5,3 +5,6 @@
     ?color="BLACK"
 >player
 >rock
+>background
+>rain
+>enemy
