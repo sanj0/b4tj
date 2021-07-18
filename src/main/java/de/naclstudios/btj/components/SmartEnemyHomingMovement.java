@@ -40,7 +40,7 @@ public class SmartEnemyHomingMovement<T extends Enemy> extends EnemyMovement<T> 
                 * ((getParent().getX() - getParent().getPlayer().getX()))
                 + ((getParent().getY() - getParent().getPlayer().getY()))
                 * ((getParent().getY() - getParent().getPlayer().getY())))
-                <= (getSenseRadius() * getSenseRadius())) { // haha malte ich fix das nich
+                <= (getSenseRadius() * getSenseRadius())) { // haha malte ich fix das nicht
             inSenseRadius = true;
         } else {
             inSenseRadius = false;
