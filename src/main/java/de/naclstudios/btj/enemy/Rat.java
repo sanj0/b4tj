@@ -18,8 +18,6 @@ public class Rat extends Enemy {
     public static final String TAG = "rat";
     public static final String TEXMAP_PATH = "assets/rat.texmap.sj";
     public static TextureAtlas TEX_ATLAS;
-    private static final SpritesheetAnimation WALK_LEFT_ANIM = TEX_ATLAS.getAnimation("walk-left");
-    private static final SpritesheetAnimation WALK_RIGHT_ANIM = TEX_ATLAS.getAnimation("walk-right");
 
     static {
         try {
@@ -28,6 +26,8 @@ public class Rat extends Enemy {
             e.printStackTrace();
         }
     }
+    private static final SpritesheetAnimation WALK_LEFT_ANIM = TEX_ATLAS.getAnimation("walk-left");
+    private static final SpritesheetAnimation WALK_RIGHT_ANIM = TEX_ATLAS.getAnimation("walk-right");
 
     private final AnimationRender animationRender;
     private final int tpf;
