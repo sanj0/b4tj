@@ -2,8 +2,11 @@ package de.naclstudios.btj.menu;
 
 import de.edgelord.saltyengine.core.Game;
 import de.edgelord.saltyengine.core.SceneManager;
+import de.edgelord.saltyengine.input.Input;
+import de.edgelord.saltyengine.io.SystemDependentFiles;
 import de.edgelord.saltyengine.resource.InnerResource;
 import de.edgelord.saltyengine.scene.Scene;
+import de.edgelord.saltyengine.si.scene.DesignerScene;
 import de.edgelord.saltyengine.transform.Vector2f;
 import de.edgelord.saltyengine.ui.elements.BorderedLabel;
 import de.edgelord.saltyengine.ui.elements.Button;
@@ -11,10 +14,14 @@ import de.edgelord.saltyengine.ui.elements.Label;
 import de.edgelord.saltyengine.utils.ColorUtil;
 import de.edgelord.saltyengine.utils.Positions;
 import de.edgelord.saltyengine.utils.SaltySystem;
-import de.naclstudios.btj.Level1;
+import de.naclstudios.btj.B4TJGameObjectDeParser;
+import de.naclstudios.btj.B4TJGameObjectParser;
+import de.naclstudios.btj.LevelLoader;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -26,6 +33,7 @@ public class MainMenu extends Scene {
 
     private Label titleLbl;
     private Button startBtn;
+    private Button editorBtn;
     private Button creditsBtn;
     private Button quitBtn;
 
@@ -46,13 +54,44 @@ public class MainMenu extends Scene {
         startBtn = new Button("start", btnX, btnY0, buttonWidth, buttonHeight) {
             @Override
             public void onClick(MouseEvent e) {
-                SceneManager.setCurrentScene(new Level1());
+                Input.getMouseHandlers().clear();
+                Input.getKeyboardHandlers().clear();
+                final JFileChooser sceneFileChooser = new JFileChooser(SystemDependentFiles.getUserDir());
+                sceneFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                sceneFileChooser.setDialogTitle("load a .sj scene file");
+                if (sceneFileChooser.showSaveDialog(Game.getHostAsDisplayManager().getDisplay()) == JFileChooser.APPROVE_OPTION) {
+                    final File sceneFile = sceneFileChooser.getSelectedFile();
+                    try {
+                        SceneManager.setCurrentScene(LevelLoader.loadLevel(sceneFile));
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }
             }
         };
-        startBtn.setBackgroundColor(ColorUtil.DEEP_PINK);
+        startBtn.setBackgroundColor(ColorUtil.CRIMSON_RED);
         startBtn.setFont(btnFont);
 
-        creditsBtn = new Button("credits", btnX, btnY0 + buttonOffsetY, buttonWidth, buttonHeight) {
+        editorBtn = new Button("level editor", btnX, btnY0 + buttonOffsetY, buttonWidth, buttonHeight) {
+            @Override
+            public void onClick(MouseEvent e) {
+                final JFileChooser sceneFileChooser = new JFileChooser(SystemDependentFiles.getUserDir());
+                sceneFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                sceneFileChooser.setDialogTitle("load or create a .sj scene file");
+                if (sceneFileChooser.showSaveDialog(Game.getHostAsDisplayManager().getDisplay()) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        SceneManager.setCurrentScene(new DesignerScene("assets/scenedesginer.config.sj",
+                                sceneFileChooser.getSelectedFile(), new B4TJGameObjectParser(), new B4TJGameObjectDeParser()));
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }
+            }
+        };
+        editorBtn.setBackgroundColor(ColorUtil.DEEP_PINK);
+        editorBtn.setFont(btnFont);
+
+        creditsBtn = new Button("credits", btnX, btnY0 + buttonOffsetY * 2, buttonWidth, buttonHeight) {
             @Override
             public void onClick(MouseEvent e) {
                 try {
@@ -62,10 +101,10 @@ public class MainMenu extends Scene {
                 }
             }
         };
-        creditsBtn.setBackgroundColor(ColorUtil.CRIMSON_RED);
+        creditsBtn.setBackgroundColor(ColorUtil.ORCHID_PURPLE);
         creditsBtn.setFont(btnFont);
 
-        quitBtn = new Button("quit", btnX, btnY0 + buttonOffsetY * 2, buttonWidth, buttonHeight) {
+        quitBtn = new Button("quit", btnX, btnY0 + buttonOffsetY * 3, buttonWidth, buttonHeight) {
             @Override
             public void onClick(MouseEvent e) {
                 Game.quit();
@@ -76,6 +115,7 @@ public class MainMenu extends Scene {
 
         getUI().addElement(titleLbl);
         getUI().addElement(startBtn);
+        getUI().addElement(editorBtn);
         getUI().addElement(creditsBtn);
         getUI().addElement(quitBtn);
     }

@@ -1,4 +1,4 @@
-package de.naclstudios.btj;
+package de.naclstudios.btj.objects;
 
 import de.edgelord.saltyengine.core.event.CollisionEvent;
 import de.edgelord.saltyengine.core.graphics.SaltyGraphics;
@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class Obstacle extends GameObject {
 
-    Color color;
+    private Color color;
 
     public Obstacle(float xPos, float yPos, float width, float height, Color color, String tag) {
         super(xPos, yPos, width, height, tag);
@@ -38,5 +38,23 @@ public class Obstacle extends GameObject {
     public void draw(SaltyGraphics saltyGraphics) {
         saltyGraphics.setColor(color);
         saltyGraphics.drawRect(this);
+    }
+
+    /**
+     * Gets {@link #color}.
+     *
+     * @return the value of {@link #color}
+     */
+    public Color getColor() {
+        return color;
+    }
+
+    /**
+     * Sets {@link #color}.
+     *
+     * @param color the new value of {@link #color}
+     */
+    public void setColor(final Color color) {
+        this.color = color;
     }
 }

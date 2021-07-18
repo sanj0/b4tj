@@ -12,7 +12,7 @@ import java.awt.*;
 
 public class Level1Background extends EmptyGameObject {
 
-    private static SaltyImage img = new InnerResource().getImageResource("assets/first level.png");
+    private static SaltyImage img = new InnerResource().getImageResource("assets/level0.png");
     public Level1Background() {
         super(0, 0, 0, 0, "background");
         img = ImageUtils.resize(img, img.getWidth() * .75f, img.getHeight() * .75f, RenderingHints.VALUE_INTERPOLATION_BICUBIC);

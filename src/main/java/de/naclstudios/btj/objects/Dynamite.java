@@ -1,4 +1,4 @@
-package de.naclstudios.btj;
+package de.naclstudios.btj.objects;
 
 import de.edgelord.saltyengine.core.SceneManager;
 import de.edgelord.saltyengine.core.event.CollisionEvent;
@@ -8,6 +8,7 @@ import de.edgelord.saltyengine.graphics.image.SaltyImage;
 import de.edgelord.saltyengine.resource.InnerResource;
 import de.edgelord.saltyengine.utils.ColorUtil;
 import de.edgelord.saltyengine.utils.ImageUtils;
+import de.naclstudios.btj.Player;
 
 import java.awt.*;
 

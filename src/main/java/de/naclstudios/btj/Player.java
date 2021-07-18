@@ -8,6 +8,7 @@ import de.edgelord.saltyengine.input.Input;
 import de.edgelord.saltyengine.transform.Vector2f;
 import de.edgelord.saltyengine.utils.ColorUtil;
 import de.edgelord.saltyengine.utils.Directions;
+import de.naclstudios.btj.objects.Dynamite;
 
 import java.awt.geom.AffineTransform;
 import java.io.IOException;

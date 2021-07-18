@@ -17,7 +17,7 @@
         <dependency>
             <groupId>de.edgelord.salty-engine</groupId>
             <artifactId>salty-engine</artifactId>
-            <version>0.14.21-SNAPSHOT</version>
+            <version>0.15-SNAPSHOT</version>
         </dependency>
     </dependencies>
          

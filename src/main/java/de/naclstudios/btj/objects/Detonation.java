@@ -1,4 +1,4 @@
-package de.naclstudios.btj;
+package de.naclstudios.btj.objects;
 
 import de.edgelord.saltyengine.collision.collider.GhostCollider;
 import de.edgelord.saltyengine.core.event.CollisionEvent;
@@ -11,6 +11,9 @@ import de.edgelord.saltyengine.gameobject.GameObject;
 import de.edgelord.saltyengine.transform.Vector2f;
 import de.edgelord.saltyengine.utils.ColorUtil;
 import de.edgelord.saltyengine.utils.Directions;
+import de.naclstudios.btj.B4TJEntity;
+import de.naclstudios.btj.B4TJUtils;
+import de.naclstudios.btj.Player;
 
 import java.awt.*;
 import java.util.Optional;

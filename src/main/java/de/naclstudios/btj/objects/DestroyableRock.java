@@ -1,4 +1,4 @@
-package de.naclstudios.btj;
+package de.naclstudios.btj.objects;
 
 import de.edgelord.saltyengine.core.Game;
 import de.edgelord.saltyengine.core.event.CollisionEvent;
